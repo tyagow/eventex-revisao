@@ -6,13 +6,15 @@ from .views import home
 
 
 class HomePageTest(TestCase):
+    def setUp(self):
+        self.response = self.client.get('/')
 
-    def test_root_url_resolve_home_index(self):
-        found = resolve('/')
-        self.assertEqual(found.func, home)
+    def test_get(self):
+        """Get / must return status code 200"""
+        self.assertEqual(200, self.response.status_code)
 
     def test_view_returns_correct_html(self):
-        request = HttpRequest()
-        response = home(request)
-        expected_html = render_to_string('index.html', request=request)
-        self.assertEqual(response.content.decode(), expected_html)
+        """Must use index.html"""
+        self.assertTemplateUsed(self.response, 'index.html')
+
+
