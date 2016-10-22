@@ -6,3 +6,4 @@ Test Results - Tests.html
 *pyc
 __pycache__
 staticfiles/
+.ipynb_checkpoints/
