@@ -8,7 +8,7 @@ class SubscriptionDetailGet(TestCase):
     def setUp(self):
         self.obj = Subscription.objects.create(name='Tiago Almeida', cpf='12345678901',
                    email='tyagow@hotmail.com.br', phone='48-9999-0000')
-        self.resp = self.client.get('/inscricao/{}/'.format(self.obj.pk))
+        self.resp = self.client.get('/inscricao/{}/'.format(self.obj.hashId))
 
     def test_get(self):
         self.assertEqual(200, self.resp.status_code)
