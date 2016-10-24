@@ -41,7 +41,7 @@ INSTALLED_APPS = [
     'test_without_migrations',
 
     'eventex.core',
-    'eventex.subscriptions',
+    'eventex.subscriptions.apps.SubscriptionsCondig',
 ]
 
 MIDDLEWARE_CLASSES = [
