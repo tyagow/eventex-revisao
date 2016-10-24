@@ -1,3 +1,4 @@
+from django.shortcuts import resolve_url as r
 from django.test import TestCase
 
 from eventex.subscriptions.models import Subscription
@@ -28,5 +29,5 @@ class SubscriptionDetailGet(TestCase):
 
 class SubscriptionDetailNotFound(TestCase):
     def test_not_found(self):
-        resp = self.client.get('/inscricao/0/')
+        resp = self.client.get(r('detail', '00000000-0000-0000-0000-000000000000'))  # modificado
         self.assertEqual(404, resp.status_code)

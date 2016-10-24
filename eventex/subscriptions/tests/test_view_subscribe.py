@@ -1,4 +1,5 @@
 from django.core import mail
+from django.shortcuts import resolve_url
 from django.test import TestCase
 
 from eventex.subscriptions.forms import SubscriptionForm
@@ -42,11 +43,12 @@ class SubscribePostValid(TestCase):
     def setUp(self):
         data = dict(name='Tiago Almeida', cpf='12345678901',
                    email='tyagow@hotmail.com.br', phone='48-9999-0000')
-        self.response = self.client.post('/inscricao/', data)
+        self.resp = self.client.post('/inscricao/', data)
+        self.id = Subscription.objects.first().id
 
     def test_post(self):
-        """Valid POST should redirect to /inscricao/1/"""
-        self.assertRedirects(self.response, '/inscricao/1/')
+        """Valid POST should redirect to /inscricao/id/"""
+        self.assertRedirects(self.resp, resolve_url('detail', self.id))
 
     def test_send_subscribe_email(self):
         self.assertEqual(1, len(mail.outbox))
