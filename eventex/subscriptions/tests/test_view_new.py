@@ -79,3 +79,9 @@ class SubscriptionsNewPostInvalid(TestCase):
     def test_dont_save_subcription(self):
         self.assertFalse(Subscription.objects.exists())
 
+
+class TemplateRegressionTest(TestCase):
+    def test_template_has_non_fields_errors(self):
+        invalid_data = dict(name='Tiago Almeida', cpf='12345678901') # essa data eh invalida pois so estou enviando dois campos mas 3 tem que ser informados name,cpf,phone or email por isso invalid data
+        response = self.client.post(r('subscriptions:new'), invalid_data)
+        self.assertContains(response, '<ul class="errorlist nonfield">')
